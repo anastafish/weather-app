@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Seymour+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Chela+One&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Autour+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap');
 
 html,body{
     margin: 0; height: 100%; overflow: hidden
@@ -51,6 +51,7 @@ body{
 }
 
 .content{
+    border: 5px solid black;
     padding: 20px;
     background-color: aliceblue;
     display: flex;
@@ -63,6 +64,7 @@ body{
 }
 
 .content > h1{
+    font-family: 'Roboto', sans-serif;
     color: #D6692B;
     font-size: 35px;
 }
@@ -116,7 +118,7 @@ background-color: white;
 }
 
 .title{
-    font-family: 'Seymour One', sans-serif;
+    font-family: 'Autour One', cursive;
     user-select: none;
     font-size: 55px;
 }
@@ -134,15 +136,17 @@ background-color: white;
 }
 
 input{
+    border: none;
+    border: 3px solid black;
     font-size: 20px;
     padding: 5px;
     border-radius: 10px;
-    border: none;
     width: 15rem;
     height: 25px;
 }
 
 #mesure{
+    border: 2px solid black;
     font-size: 20px;
     width: fit-content;
     height: 30px;
@@ -153,9 +157,11 @@ h1{
 }
 
 .search{
+    text-align: center;
+    border: none;
+    border: 2px solid black;
     padding: 10px;
     font-size: 20px;
-    border: none;
     height: 40px;
     width: 170px;
     border-radius: 10px;
