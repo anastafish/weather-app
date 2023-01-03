@@ -16,12 +16,14 @@ const temp = data.main.temp
 const desc = data.weather[0].description
 const city_name = data.name
 const feels = data.main.feels_like
+const icon = data.weather[0].icon
 
 return{
     temp:temp,
     desc:desc,
     city:city_name,
-    feels:feels
+    feels:feels,
+    icon:icon
 }
 }
 catch(err){
@@ -34,29 +36,18 @@ catch(err){
 
 async function icons(temp, info){
 const icon = document.querySelector('.temp-icon')
-if(temp < 10){
-    icon.src = './images/cold.png'
-    icon.style.display = 'block'; 
-    if(info.includes("clouds")){
-        icon.src = './images/cloudy.png'
-    }
-    else if(info.includes('rain')){
-        icon.src = './images/rain.png'
-    }   
-}
-else if(temp > 10){
-    icon.src = './images/sunnyicon.png'
-    icon.style.display = 'block';
-    if(info.includes("clouds")){
-        icon.src = './images/cloudy.png'
-    }
-    else if(info.includes("rain")){
-        icon.src = './images/rain.png'
-    }
+icon.src = `http://openweathermap.org/img/wn/${temp}@2x.png`
+icon.style.display = 'block';
 }
 
-
-}
+weatherData('new york', 'metric').then(data => {
+    temp.textContent = `Temperature: ${data.temp}`;
+        desc.textContent = `Info: ${data.desc}`;
+        cityName.textContent = `City: ${data.city}`;
+        feels.textContent = `Feels Like: ${data.feels}`;
+        icons(data.icon)
+        document.querySelector('.content').style.padding = '20px'
+})
 
 document.querySelector('.search').addEventListener('click', () => {
     const city = document.querySelector('#input').value
@@ -66,8 +57,27 @@ document.querySelector('.search').addEventListener('click', () => {
         desc.textContent = `Info: ${data.desc}`;
         cityName.textContent = `City: ${data.city}`;
         feels.textContent = `Feels Like: ${data.feels}`;
-        icons(data.temp, data.desc)
+        icons(data.icon)
         document.querySelector('.content').style.padding = '20px'
 
     })
 })
+
+document.querySelector('#mesure').addEventListener('input', () => {
+    let city = document.querySelector('#input').value
+    const unit = document.querySelector('#mesure').value  
+    if (!city){
+        city = 'new york'
+    }
+    weatherData(city,unit).then(data => {
+        temp.textContent = `Temperature: ${data.temp}`;
+        desc.textContent = `Info: ${data.desc}`;
+        cityName.textContent = `City: ${data.city}`;
+        feels.textContent = `Feels Like: ${data.feels}`;
+        icons(data.icon)
+        document.querySelector('.content').style.padding = '20px'
+
+    })
+})
+
+
