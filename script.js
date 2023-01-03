@@ -2,6 +2,11 @@ const temp = document.querySelector('.temp')
 const desc = document.querySelector('.desc')
 const cityName = document.querySelector('.city') 
 const feels = document.querySelector('.feels')
+const leftImg = document.querySelector('.left-img')
+const rightImg = document.querySelector('.right-img')
+
+leftImg.src = './images/cloud.png'
+rightImg.src = './images/sunny.png'
 
 async function weatherData(city,mesure){
     try{
@@ -27,14 +32,31 @@ catch(err){
 }
 } 
 
-async function gif(){
-    const leftIng = document.querySelector('.left-img')
-    const rightImg = document.querySelector('.right-img')
-
-    const response = await fetch('api.giphy.com/v1/gifs/search?api_key=psIVhNPtuiEV3zfNbAIr8ORyZxUYYVMZ&q=cat')
-    const data = await response.json()
+async function icons(temp, info){
+const icon = document.querySelector('.temp-icon')
+if(temp < 10){
+    icon.src = './images/cold.png'
+    icon.style.display = 'block'; 
+    if(info.includes("clouds")){
+        icon.src = './images/cloudy.png'
+    }
+    else if(info.includes('rain')){
+        icon.src = './images/rain.png'
+    }   
+}
+else if(temp > 10){
+    icon.src = './images/sunnyicon.png'
+    icon.style.display = 'block';
+    if(info.includes("clouds")){
+        icon.src = './images/cloudy.png'
+    }
+    else if(info.includes("rain")){
+        icon.src = './images/rain.png'
+    }
 }
 
+
+}
 
 document.querySelector('.search').addEventListener('click', () => {
     const city = document.querySelector('#input').value
@@ -44,5 +66,8 @@ document.querySelector('.search').addEventListener('click', () => {
         desc.textContent = `Info: ${data.desc}`;
         cityName.textContent = `City: ${data.city}`;
         feels.textContent = `Feels Like: ${data.feels}`;
+        icons(data.temp, data.desc)
+        document.querySelector('.content').style.padding = '20px'
+
     })
 })
